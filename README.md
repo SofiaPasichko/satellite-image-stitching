@@ -64,11 +64,12 @@ ORB detects image keypoints and computes binary descriptors. It is fast and uses
 
 #### SIFT (Scale-Invariant Feature Transform)
 
-SIFT detects keypoints and creates more detailed descriptors. It is slower than ORB but usually finds more accurate matches. It uses the Euclidean (L2) distance to compare features.
+SIFT detects keypoints and creates more detailed descriptors. It usually finds more accurate matches. It uses the Euclidean (L2) distance to compare features.
 
 ### 3. Feature matching
 
 Features from two images are matched using the Brute-Force (BF) matcher. ORB compares features using the Hamming distance, while SIFT uses the Euclidean (L2) distance. KNN returns the two best matches for each feature.
+
 ### 4. Lowe's Ratio Test
 
 Lowe's Ratio Test keeps only reliable matches by comparing the two closest matches for each feature.
@@ -80,6 +81,7 @@ RANSAC estimates the homography matrix and removes incorrect matches, keeping on
 ### 6. Panorama construction
 
 The panorama size is calculated automatically based on the transformed image corners. A translation matrix shifts the image when needed to avoid cropping. Finally, the first image is warped, and the second image is added to create the panorama.
+
 ### 7. Multi-image panorama generation
 
 To create a panorama from multiple images, the images are stitched one by one. The first image is used as the starting panorama, and each following image is matched and added to it. Images that cannot be matched are skipped.
@@ -101,7 +103,7 @@ python benchmark.py
 ### Generate a panorama
 
 ```bash
-python create_panorama.py
+python main.py
 ```
 
 ## Pipeline
@@ -146,7 +148,8 @@ Panorama Generation
 | Inlier ratio |   75.00% | 83.10% |
 | Execution time | 0.6651 s | 0.4652 s |
 
-ORB finds fewer correct matches. SIFT finds more keypoints and more accurate matches, which leads to a more reliable panorama.
+Execution time was measured on a single image pair and may vary between runs.
+ORB finds fewer correct matches. On the tested image pair SIFT finds more keypoints and more accurate matches, which leads to a more reliable panorama.
 ## Generated panorama
 
 ![Panorama](results/benchmark/panorama.jpg)
